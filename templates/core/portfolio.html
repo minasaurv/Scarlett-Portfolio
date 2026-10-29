@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Portfolio - Scarlett Conyers{% endblock %}
+
+{% block content %}
+  <section class="portfolio-page" aria-labelledby="portfolio-title">
+    <div class="portfolio-inner">
+      <p class="portfolio-kicker"><i class="fa-solid fa-palette" aria-hidden="true"></i> A closer look at the things I make</p>
+      <h1 id="portfolio-title"><i class="fa-solid fa-images" aria-hidden="true"></i> My Portfolio</h1>
+      {% if items %}
+        <div class="portfolio-grid">
+          {% for item in items %}
+            <article class="portfolio-card{% if item.is_featured %} is-featured{% endif %}">
+              {% if item.is_featured %}<span class="portfolio-featured"><i class="fa-solid fa-star" aria-hidden="true"></i> Featured</span>{% endif %}
+              {% if item.image %}
+                <button type="button" class="portfolio-image" data-modal-open="piece-{{ item.pk }}" aria-label="View details for {{ item.title }}">
+                  <img src="{{ item.image.url }}" alt="{{ item.image_alt|default:item.title }}" loading="lazy">
+                  <span class="portfolio-arrow" aria-hidden="true"><i class="fa-solid fa-expand"></i></span>
+                </button>
+              {% endif %}
+              <div class="portfolio-meta">
+                {% if item.category %}<p class="portfolio-category">{{ item.category }}</p>{% endif %}
+                <h2>{{ item.title }}</h2>
+                {% if item.description %}<p class="portfolio-excerpt">{{ item.description }}</p>{% endif %}
+                <button type="button" class="portfolio-more" data-modal-open="piece-{{ item.pk }}" aria-label="View details for {{ item.title }}">View details <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+              </div>
+            </article>
+
+            <dialog class="portfolio-modal" id="piece-{{ item.pk }}" aria-labelledby="piece-{{ item.pk }}-title">
+              <button type="button" class="portfolio-modal-close" data-modal-close aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+              {% if item.image %}<img class="portfolio-modal-image" src="{{ item.image.url }}" alt="{{ item.image_alt|default:item.title }}" loading="lazy">{% endif %}
+              <div class="portfolio-modal-body">
+                {% if item.category %}<p class="portfolio-category">{{ item.category }}</p>{% endif %}
+                <h2 id="piece-{{ item.pk }}-title">{{ item.title }}</h2>
+                {% if item.client or item.year or item.tool_list %}
+                  <dl class="portfolio-details">
+                    {% if item.client %}<div><dt><i class="fa-solid fa-user" aria-hidden="true"></i> Client</dt><dd>{{ item.client }}</dd></div>{% endif %}
+                    {% if item.year %}<div><dt><i class="fa-solid fa-calendar" aria-hidden="true"></i> Year</dt><dd>{{ item.year }}</dd></div>{% endif %}
+                    {% if item.tool_list %}
+                      <div>
+                        <dt><i class="fa-solid fa-paintbrush" aria-hidden="true"></i> Tools</dt>
+                        <dd><ul class="portfolio-tools">{% for tool in item.tool_list %}<li>{{ tool }}</li>{% endfor %}</ul></dd>
+                      </div>
+                    {% endif %}
+                  </dl>
+                {% endif %}
+                {% if item.description %}<p class="portfolio-modal-text">{{ item.description|linebreaksbr }}</p>{% endif %}
+                {% if item.link %}
+                  <a class="portfolio-visit" href="{{ item.link }}" target="_blank" rel="noopener noreferrer">{{ item.link_text|default:"Visit project" }} <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                {% endif %}
+              </div>
+            </dialog>
+          {% endfor %}
+        </div>
+        <script>
+          document.querySelectorAll('[data-modal-open]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              document.getElementById(btn.dataset.modalOpen).showModal();
+            });
+          });
+          document.querySelectorAll('.portfolio-modal').forEach(function (dialog) {
+            dialog.addEventListener('click', function (e) {
+              if (e.target === dialog || e.target.closest('[data-modal-close]')) dialog.close();
+            });
+          });
+        </script>
+      {% else %}
+        <div class="portfolio-empty">
+          <i class="fa-solid fa-camera-retro portfolio-empty-icon" aria-hidden="true"></i>
+          <h2><i class="fa-solid fa-camera-retro" aria-hidden="true"></i> The gallery is getting ready!</h2>
+          <p>There doesn't seem to be anything here yet.</p>
+        </div>
+      {% endif %}
+      {% if user.is_staff %}
+        <a class="portfolio-manage" href="{% url 'admin:core_portfolioitem_changelist' %}"><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> Manage portfolio</a>
+      {% endif %}
+      <a class="portfolio-back" href="{% url 'core:index' %}#home"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i> Back to the homepage</a>
+    </div>
+  </section>
+{% endblock %}

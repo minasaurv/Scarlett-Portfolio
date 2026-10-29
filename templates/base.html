@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fff0e5">
+    <meta name="description" content="Scarlett Conyers is a graphic designer at Cold Brew Code.">
+    <title>{% block title %}Scarlett Conyers - Graphic Designer &amp; Illustrator{% endblock %}</title>
+    {% load static %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'core/portfolio.css' %}">
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="masthead">
+      <div class="masthead-stripes">
+        <a class="brand" href="{% url 'core:index' %}" aria-label="Scarlett Conyers home">
+          <img src="{% static 'core/scarlett-conyers-logo.png' %}" alt="">
+        </a>
+      </div>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="{% url 'core:index' %}"><i class="fa-solid fa-house" aria-hidden="true"></i> Home</a>
+        <a href="{% url 'core:portfolio' %}"><i class="fa-solid fa-images" aria-hidden="true"></i> Portfolio</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-main">
+          <div class="footer-signoff">
+            <a class="footer-brand" href="{% url 'core:index' %}" aria-label="Scarlett Conyers home">
+              <img src="{% static 'core/scarlett-conyers-logo.png' %}" alt="">
+            </a>
+            <p><i class="fa-solid fa-face-smile" aria-hidden="true"></i> Thanks for stopping by!<br><span>Graphic Designer at <a class="company-link" href="https://coldbrewcode.dev" target="_blank" rel="noopener noreferrer">Cold Brew Code, LLC.</a></span></p>
+          </div>
+          <nav class="footer-nav" aria-label="Footer navigation">
+            <a href="{% url 'core:index' %}"><i class="fa-solid fa-house" aria-hidden="true"></i> Home</a>
+            <a href="{% url 'core:portfolio' %}"><i class="fa-solid fa-images" aria-hidden="true"></i> Portfolio</a>
+          </nav>
+          <a class="back-to-top" href="#top">Back to top <i class="fa-solid fa-arrow-up" aria-hidden="true"></i></a>
+        </div>
+        <div class="footer-bottom">
+          <span>Made with a little extra sweetness <i class="fa-solid fa-heart site-credit-icon" aria-hidden="true"></i> by <a class="site-credit" href="https://minasaur.com" target="_blank" rel="noopener noreferrer">MinasaurV</a></span>
+          <span><i class="fa-regular fa-copyright" aria-hidden="true"></i> {% now "Y" %} Scarlett Conyers</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

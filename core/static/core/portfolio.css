@@ -1,0 +1,1462 @@
+/* ==========================================================================
+   Scarlett Conyers portfolio styles
+
+   1. Design tokens and base
+   2. Masthead and navigation
+   3. Hero (intro text + lollipop portrait)
+   4. Shared dotted rail, About, Contact
+   5. Footer
+   6. Portfolio page
+   7. Responsive overrides and reduced motion
+   ========================================================================== */
+
+/* 1. Design tokens and base ------------------------------------------- */
+
+:root {
+  --ink: #321a21;
+  --brown: #8d5100;
+  --cream: #fff0e5;
+  --pink: #ff83b4;
+  --pink-dark: #db3156;
+  --orange: #ff791e;
+  --white: #fffaf3;
+  --display: "Chewy", "Trebuchet MS", sans-serif;
+  --body: "Nunito", "Trebuchet MS", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 20px;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  color: var(--ink);
+  background: var(--cream);
+  font-family: var(--body);
+  font-size: 20px;
+}
+
+/* Main grows to fill the page so the footer always reaches the bottom of the screen */
+main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+main > section {
+  flex: 1 0 auto;
+}
+
+a {
+  color: inherit;
+}
+
+/* Accessibility: hidden until focused by keyboard */
+.skip-link {
+  position: absolute;
+  z-index: 5;
+  top: 8px;
+  left: 8px;
+  padding: 8px 13px;
+  transform: translateY(-150%);
+  background: var(--white);
+  color: var(--ink);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* 2. Masthead and navigation ------------------------------------------ */
+
+/* Gray striped banner that holds the logo */
+.masthead-stripes {
+  height: 118px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(133deg, #dedede 0 74px, #bdbdbd 74px 147px);
+}
+
+.brand {
+  display: block;
+  width: min(465px, 82vw);
+  line-height: 0;
+  transition: transform .2s ease;
+}
+
+.brand:hover {
+  transform: rotate(-1deg) scale(1.025);
+}
+
+.brand img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* White link bar under the masthead; colors chosen for WCAG AA contrast on white */
+.site-nav {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(26px, 4vw, 55px);
+  background: #fff;
+}
+
+.site-nav a {
+  color: #a32650;
+  font-family: var(--display);
+  font-size: 22px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: #8d5100;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* 3. Hero --------------------------------------------------------------- */
+
+/* Cream background with two interleaved polka-dot layers (pink + orange) */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  padding: 46px 28px 54px;
+  background:
+    radial-gradient(circle, rgba(255, 131, 180, .4) 0 4px, transparent 5px) 0 0 / 76px 76px,
+    radial-gradient(circle, rgba(255, 121, 30, .3) 0 3px, transparent 4px) 38px 38px / 76px 76px,
+    var(--cream);
+}
+
+/* Two columns: text on the left, lollipop on the right (stacks on mobile) */
+.hero-inner {
+  position: relative;
+  width: min(100%, 1100px);
+  min-height: 490px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(400px, .95fr);
+  align-items: center;
+  gap: 35px;
+  padding: 18px 30px 42px;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 20px;
+  color: #85411e;
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
+.hero-kicker i {
+  color: var(--pink-dark);
+  font-size: 25px;
+}
+
+.hero-copy h1 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(56px, 7vw, 88px);
+  font-weight: 400;
+  letter-spacing: -.025em;
+  line-height: 1.04;
+}
+
+/* Second headline line, nudged and tilted; kept on one line so "pop." never wraps alone */
+.hero-copy h1 span {
+  display: inline-block;
+  margin-top: 5px;
+  transform: rotate(-2deg);
+  color: var(--pink-dark);
+  white-space: nowrap;
+}
+
+/* The emphasized word: outlined bubblegum-pink text with a hard offset shadow */
+.pop-word {
+  display: inline-block;
+  transform: rotate(-4deg) scale(1.28);
+  transform-origin: 20% 80%;
+  margin-left: .12em;
+  color: var(--pink);
+  font-style: normal;
+  -webkit-text-stroke: 3px var(--ink);
+  paint-order: stroke fill;
+  text-shadow: 4px 5px 0 var(--ink);
+}
+
+.hero-intro {
+  max-width: 470px;
+  margin: 22px 0 25px;
+  color: #5b4041;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 23px;
+}
+
+/* Sticker-style button: the hard shadow shrinks on hover to feel "pressed" */
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  padding: 13px 20px;
+  border: 2px solid var(--ink);
+  border-radius: 18px 4px 18px 4px;
+  background: var(--pink);
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 20px;
+  text-decoration: none;
+  box-shadow: 4px 5px 0 var(--ink);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.hero-button:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 3px 0 var(--ink);
+}
+
+.hero-button i {
+  font-size: 24px;
+}
+
+/* Text link: plain at rest; underlines and slides right on hover/focus */
+.hero-about-link {
+  display: inline-block;
+  color: #87304d;
+  font-size: 18px;
+  font-weight: 900;
+  text-decoration: none;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: transform .2s ease;
+}
+
+.hero-about-link:hover,
+.hero-about-link:focus-visible {
+  transform: translateX(6px);
+  text-decoration: underline;
+}
+
+.hero-about-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+/* Lollipop portrait: square art box; the whole lollipop is tilted, pivoting at the stick's base */
+.hero-art {
+  position: relative;
+  width: min(100%, 445px);
+  aspect-ratio: 1;
+  justify-self: end;
+}
+
+.hero-lollipop {
+  position: absolute;
+  inset: 0 0 8%;
+  transform: rotate(9deg);
+  transform-origin: 50% 100%;
+}
+
+/* Stick sits behind the swirl and extends below it (negative bottom) */
+.hero-stick {
+  position: absolute;
+  left: 50%;
+  top: 55%;
+  bottom: -9%;
+  width: 26px;
+  transform: translateX(-50%);
+  border: 4px solid var(--ink);
+  border-radius: 0 0 12px 12px;
+  background: linear-gradient(90deg, var(--white) 0 55%, #f3d9c4 55%);
+  box-shadow: 5px 6px 0 var(--ink);
+}
+
+/* Candy head: pink/white swirl made with a conic gradient */
+.hero-swirl {
+  position: absolute;
+  left: 15%;
+  top: 0;
+  width: 70%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: 4px solid var(--ink);
+  border-radius: 50%;
+  background: repeating-conic-gradient(from 10deg, var(--pink) 0 18deg, var(--white) 18deg 36deg);
+  box-shadow: 8px 9px 0 var(--ink);
+}
+
+/* Headshot centered in the swirl; stacked box-shadows draw the pink and dark rings */
+.hero-portrait {
+  width: 78%;
+  height: 78%;
+  border: 6px solid var(--white);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  outline: 4px solid var(--ink);
+  box-shadow: 0 0 0 10px var(--pink-dark), 0 0 0 14px var(--ink);
+}
+
+/* 4. Shared dotted rail, About, Contact -------------------------------- */
+
+/* Orange dotted side borders that frame the About and Contact content */
+.dotted-rail {
+  width: min(100%, 1100px);
+  margin-inline: auto;
+  border-right: 5px dotted var(--orange);
+  border-left: 5px dotted var(--orange);
+}
+
+/* Section headings share one display style */
+.about-rail h2,
+.contact-rail h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 62px;
+  font-weight: 400;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.about-section {
+  position: relative;
+  overflow: hidden;
+  padding: 24px 20px 22px;
+  background:
+    radial-gradient(rgba(138, 29, 59, .09) 1px, transparent 1.5px),
+    var(--pink);
+  background-size: 13px 13px;
+}
+
+.about-rail {
+  position: relative;
+  padding: 0 0 18px;
+  border: 0;
+}
+
+.about-rail h2 {
+  margin-bottom: 3px;
+  color: #7d1025;
+  text-align: left;
+}
+
+.about-rail h2 i,
+.contact-rail h2 i {
+  margin-right: 9px;
+  color: var(--pink-dark);
+  font-size: .72em;
+  vertical-align: .08em;
+}
+
+.about-intro {
+  width: fit-content;
+  margin: 0 0 26px;
+  padding: 5px 13px;
+  transform: rotate(-1.5deg);
+  border: 1px solid rgba(125, 16, 37, .28);
+  border-radius: 2px 12px 2px 12px;
+  background: var(--cream);
+  color: #8d3c4e;
+  font-family: var(--display);
+  font-size: 21px;
+}
+
+.about-intro i {
+  margin-right: 7px;
+  color: #a35328;
+}
+
+/* About: tilted headshot beside a text card */
+.about-content {
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  align-items: start;
+  gap: 32px;
+}
+
+.about-portrait {
+  width: 340px;
+  height: 325px;
+  display: block;
+  transform: rotate(-2deg);
+  border: 8px solid var(--white);
+  border-radius: 4px 22px 4px 22px;
+  object-fit: cover;
+  object-position: center;
+  box-shadow: 8px 9px 0 rgba(125, 16, 37, .24);
+}
+
+.about-copy {
+  padding: 24px 28px;
+  border: 1px solid rgba(125, 16, 37, .16);
+  border-radius: 22px 4px 22px 4px;
+  background: rgba(255, 240, 229, .94);
+  color: #65303b;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.58;
+  box-shadow: 5px 6px 0 rgba(125, 16, 37, .15);
+}
+
+.about-copy p {
+  margin: 0 0 17px;
+}
+
+/* Contact: red band with a faint dot texture */
+.contact-section {
+  position: relative;
+  overflow: hidden;
+  padding: 26px 20px 40px;
+  background:
+    radial-gradient(rgba(255, 250, 243, .16) 1.5px, transparent 2px),
+    #db3158;
+  background-size: 17px 17px;
+  color: var(--white);
+}
+
+.contact-rail {
+  position: relative;
+  min-height: 225px;
+  padding: 0 36px 26px;
+  border: 0;
+  text-align: center;
+}
+
+.contact-rail h2 {
+  font-size: 64px;
+}
+
+/* Decorative candy icons flanking the heading (hidden from screen readers in the markup) */
+.contact-sweet {
+  position: absolute;
+  top: 32px;
+  color: var(--cream);
+  font-size: 56px;
+  transform: rotate(-15deg);
+}
+
+.contact-sweet-left {
+  left: 8%;
+}
+
+.contact-sweet-right {
+  right: 8%;
+}
+
+.contact-sweet i {
+  font-size: inherit;
+}
+
+.contact-rail p {
+  margin: 14px 0 18px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.contact-rail p i {
+  margin-right: 7px;
+  color: #ffe083;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.contact-links a {
+  display: inline-block;
+  padding: 11px 20px;
+  border-radius: 19px;
+  background: var(--cream);
+  color: #8a1933;
+  font-family: var(--display);
+  font-size: 22px;
+  text-decoration: none;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.contact-links a:hover {
+  transform: translateY(-2px);
+  background: #fff;
+}
+
+/* Non-clickable location pill: dashed outline distinguishes it from the link buttons */
+.contact-location {
+  display: inline-block;
+  padding: 11px 20px;
+  border: 3px dashed #fff;
+  border-radius: 19px;
+  color: #fff;
+  font-family: var(--display);
+  font-size: 22px;
+}
+
+.contact-links a:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.contact-links i {
+  margin-right: 7px;
+}
+
+/* 5. Footer -------------------------------------------------------------- */
+
+/* Dark footer with a pink top border and faint dot texture */
+.site-footer {
+  padding: 36px 24px 20px;
+  border-top: 8px solid var(--pink);
+  background:
+    radial-gradient(rgba(255, 250, 243, .1) 1.5px, transparent 2px),
+    #321a21;
+  background-size: 18px 18px;
+  color: var(--white);
+}
+
+.footer-inner {
+  width: min(100%, 1100px);
+  margin-inline: auto;
+}
+
+.footer-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 38px;
+  padding-bottom: 27px;
+}
+
+.footer-signoff {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-brand {
+  width: 215px;
+  flex: 0 0 auto;
+  display: block;
+  padding: 8px 10px 6px;
+  border-radius: 4px 15px 4px 15px;
+  background: var(--white);
+  line-height: 0;
+  transition: transform .2s ease;
+}
+
+.footer-brand:hover {
+  transform: rotate(-2deg);
+}
+
+.footer-brand img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.footer-signoff p {
+  flex: 1 1 150px;
+  min-width: 0;
+  margin: 0;
+  color: #fff;
+  font-family: var(--display);
+  font-size: 23px;
+  line-height: 1.18;
+}
+
+.footer-signoff p > i {
+  margin-right: 5px;
+  color: var(--pink);
+  font-size: .85em;
+}
+
+.footer-signoff p span {
+  display: inline-block;
+  margin-top: 5px;
+  color: #f3c6d1;
+  font-family: var(--body);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.footer-nav {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px 22px;
+}
+
+.footer-nav a {
+  color: #ffd5e1;
+  font-size: 17px;
+  font-weight: 800;
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus-visible {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer-nav a i {
+  color: #ffc96e;
+  font-size: .9em;
+}
+
+/* Outlined "Back to top" button; fills in on hover */
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  border: 1px solid rgba(255, 250, 243, .7);
+  border-radius: 20px 4px 20px 4px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background .2s ease, color .2s ease;
+}
+
+.back-to-top i {
+  color: #ffc96e;
+  font-size: 1.15em;
+}
+
+.back-to-top:hover {
+  background: var(--white);
+  color: var(--ink);
+}
+
+/* Copyright / credit strip */
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 250, 243, .28);
+  color: #f5dfe5;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.footer-bottom span span {
+  color: var(--pink);
+}
+
+/* Credit link to the site's builder */
+.site-credit {
+  color: #ffd5e1;
+  font-weight: 900;
+  text-decoration-color: var(--pink);
+  text-underline-offset: 3px;
+}
+
+.site-credit-icon {
+  margin-inline: 3px 1px;
+  color: var(--pink);
+  font-size: .85em;
+}
+
+/* Link to Cold Brew Code (used in the hero and footer); thickens its underline on hover */
+.company-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--pink-dark);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.company-link:hover,
+.company-link:focus-visible {
+  text-decoration-thickness: 4px;
+}
+
+.site-footer .company-link {
+  text-decoration-color: var(--pink);
+}
+
+.site-credit:hover,
+.site-credit:focus-visible {
+  color: #fff;
+  text-decoration-thickness: 2px;
+}
+
+/* 6. Portfolio page ------------------------------------------------------ */
+
+/* Raspberry gallery wall with a soft dot texture */
+.portfolio-page {
+  min-height: 440px;
+  padding: 44px 20px 56px;
+  background:
+    radial-gradient(rgba(255, 250, 243, .16) 2px, transparent 2.5px) 0 0 / 26px 26px,
+    linear-gradient(180deg, #c42a50, #a01f40);
+}
+
+.portfolio-inner {
+  width: min(100%, 1100px);
+  min-height: 370px;
+  margin-inline: auto;
+  padding: 0 15px;
+}
+
+/* Title block: cream pill kicker over a big white headline with a hard shadow */
+.portfolio-kicker {
+  width: fit-content;
+  margin: 0 auto 14px;
+  padding: 6px 18px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: var(--cream);
+  box-shadow: 4px 5px 0 var(--ink);
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.portfolio-kicker i {
+  margin-right: 6px;
+  color: var(--pink-dark);
+}
+
+.portfolio-inner > h1 {
+  margin: 0 0 6px;
+  color: #fff;
+  font-family: var(--display);
+  font-size: clamp(48px, 8vw, 84px);
+  font-weight: 400;
+  letter-spacing: -.02em;
+  line-height: 1.1;
+  text-align: center;
+  text-shadow: 4px 5px 0 var(--ink);
+}
+
+.portfolio-inner > h1 i {
+  margin-right: 10px;
+  color: #ffc96e;
+  font-size: .7em;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 38px 30px;
+  margin-top: 34px;
+}
+
+/* Each piece is a framed card; alternate cards tilt in opposite directions */
+.portfolio-card {
+  min-width: 0;
+  padding: 12px 12px 16px;
+  border: 4px solid var(--ink);
+  border-radius: 6px 26px 6px 26px;
+  background: var(--white);
+  box-shadow: 7px 8px 0 var(--ink);
+  color: var(--ink);
+  transform: rotate(-1deg);
+  transition: transform .2s ease;
+}
+
+.portfolio-card:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+.portfolio-card:hover {
+  transform: rotate(0) translateY(-4px);
+}
+
+.portfolio-image {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  display: block;
+  overflow: hidden;
+  padding: 0;
+  border: 3px solid var(--ink);
+  border-radius: 4px 18px 4px 18px;
+  background: var(--pink);
+  cursor: pointer;
+}
+
+.portfolio-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform .3s ease;
+}
+
+.portfolio-image:hover img {
+  transform: scale(1.05);
+}
+
+.portfolio-arrow {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: #ffc96e;
+  color: var(--ink);
+  font-size: 17px;
+}
+
+.portfolio-arrow i {
+  font-size: .9em;
+}
+
+.portfolio-meta h2 {
+  margin: 12px 4px 4px;
+  font-family: var(--display);
+  font-size: 29px;
+  font-weight: 400;
+}
+
+.portfolio-meta p {
+  margin: 0 4px;
+  font-size: 19px;
+  line-height: 1.5;
+}
+
+/* Long descriptions are cut to three lines; the full text lives in the modal */
+.portfolio-meta .portfolio-excerpt {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+.portfolio-more,
+.portfolio-visit {
+  display: inline-block;
+  margin: 12px 4px 0;
+  padding: 6px 16px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: #ffc96e;
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.portfolio-more:hover,
+.portfolio-more:focus-visible,
+.portfolio-visit:hover,
+.portfolio-visit:focus-visible {
+  background: var(--pink);
+}
+
+/* Details modal (native <dialog>) */
+.portfolio-modal {
+  width: min(680px, calc(100% - 28px));
+  max-height: calc(100vh - 28px);
+  padding: 0;
+  overflow-y: auto;
+  border: 4px solid var(--ink);
+  border-radius: 6px 28px 6px 28px;
+  background: var(--white);
+  box-shadow: 8px 9px 0 var(--ink);
+  color: var(--ink);
+}
+
+.portfolio-modal::backdrop {
+  background: rgba(50, 26, 33, .72);
+}
+
+.portfolio-modal-image {
+  width: 100%;
+  max-height: 55vh;
+  display: block;
+  border-bottom: 4px solid var(--ink);
+  object-fit: cover;
+}
+
+.portfolio-modal-body {
+  padding: 18px 26px 26px;
+}
+
+.portfolio-modal-body h2 {
+  margin: 0 0 8px;
+  font-family: var(--display);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.portfolio-modal-body .portfolio-category {
+  margin: 0;
+}
+
+.portfolio-modal-text {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.portfolio-modal-body .portfolio-visit {
+  margin: 20px 0 0;
+}
+
+.portfolio-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: #ffc96e;
+  color: var(--ink);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.portfolio-modal-close:hover,
+.portfolio-modal-close:focus-visible {
+  background: var(--pink);
+}
+
+/* Optional details: category label, client/year facts, and tool chips */
+.portfolio-meta .portfolio-category {
+  margin: 12px 4px 0;
+  color: var(--pink-dark);
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.portfolio-category + h2 {
+  margin-top: 2px;
+}
+
+/* Modal details: a labelled list (icon + visible text) shown above the description */
+.portfolio-details {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0 16px;
+  padding: 12px 16px;
+  border: 3px solid var(--ink);
+  border-radius: 4px 16px 4px 16px;
+  background: var(--cream);
+}
+
+.portfolio-details > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+.portfolio-details dt {
+  min-width: 88px;
+  color: var(--pink-dark);
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.portfolio-details dt i {
+  margin-right: 4px;
+}
+
+.portfolio-details dd {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.portfolio-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.portfolio-tools li {
+  padding: 2px 11px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--white);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+/* Featured pieces get a gold frame and a ribbon tag */
+.portfolio-card {
+  position: relative;
+}
+
+.portfolio-card.is-featured {
+  background: #fff3cf;
+}
+
+.portfolio-featured {
+  position: absolute;
+  top: -14px;
+  left: 18px;
+  z-index: 1;
+  padding: 3px 14px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: #ffc96e;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+/* Shown when no portfolio items are published yet: a sticker-style card */
+.portfolio-empty {
+  max-width: 560px;
+  margin: 36px auto 10px;
+  padding: 0 26px 30px;
+  border: 4px solid var(--ink);
+  border-radius: 6px 30px 6px 30px;
+  background: var(--cream);
+  box-shadow: 8px 9px 0 var(--ink);
+  color: var(--ink);
+  text-align: center;
+  transform: rotate(-1deg);
+}
+
+.portfolio-empty-icon {
+  display: block;
+  width: fit-content;
+  margin: -34px auto 14px;
+  padding: 18px;
+  border: 4px solid var(--ink);
+  border-radius: 50%;
+  background: #ffc96e;
+  color: var(--ink);
+  font-size: 50px;
+  box-shadow: 4px 5px 0 var(--ink);
+}
+
+.portfolio-empty h2 {
+  margin: 8px 0 6px;
+  color: var(--pink-dark);
+  font-family: var(--display);
+  font-size: 37px;
+  font-weight: 400;
+}
+
+.portfolio-empty p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Only shown to the signed-in site owner */
+.portfolio-manage {
+  display: block;
+  width: fit-content;
+  margin: 30px auto 0;
+  padding: 11px 22px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: #ffc96e;
+  box-shadow: 4px 5px 0 var(--ink);
+  color: var(--ink);
+  font-size: 19px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.portfolio-manage:hover,
+.portfolio-manage:focus-visible {
+  background: #fff;
+}
+
+.portfolio-manage + .portfolio-back {
+  margin-top: 22px;
+}
+
+.portfolio-back {
+  display: block;
+  width: fit-content;
+  margin: 40px auto 0;
+  padding: 11px 22px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: var(--cream);
+  box-shadow: 4px 5px 0 var(--ink);
+  color: var(--ink);
+  font-size: 19px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.portfolio-back:hover,
+.portfolio-back:focus-visible {
+  transform: translate(2px, 3px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+.portfolio-back i {
+  margin-right: 6px;
+  color: var(--pink-dark);
+}
+
+/* 7. Responsive overrides and reduced motion ---------------------------- */
+
+/* Tablet: hero stacks into one centered column */
+@media (max-width: 760px) {
+  .hero-section {
+    padding: 38px 20px 56px;
+  }
+
+  .hero-inner {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 12px 10px 24px;
+  }
+
+  .hero-copy {
+    text-align: center;
+  }
+
+  .hero-kicker {
+    justify-content: center;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(56px, 10vw, 74px);
+  }
+
+  .hero-intro {
+    margin-inline: auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-art {
+    width: min(78vw, 390px);
+    justify-self: center;
+  }
+}
+
+/* Phone: smaller type and tighter spacing throughout */
+@media (max-width: 600px) {
+  .masthead-stripes {
+    height: 82px;
+  }
+
+  .site-nav {
+    min-height: 42px;
+    gap: clamp(22px, 7vw, 40px);
+  }
+
+  .site-nav a {
+    font-size: 16px;
+  }
+
+  .hero-section {
+    padding: 30px 14px 52px;
+  }
+
+  .hero-inner {
+    gap: 17px;
+    padding-inline: 5px;
+  }
+
+  .hero-kicker {
+    gap: 7px;
+    margin-bottom: 14px;
+    font-size: 14px;
+  }
+
+  .hero-kicker i {
+    font-size: 21px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(48px, 13vw, 64px);
+  }
+
+  .hero-intro {
+    margin-block: 16px 19px;
+    font-size: 18px;
+  }
+
+  .hero-actions {
+    gap: 16px;
+  }
+
+  .hero-button {
+    padding: 11px 15px;
+    font-size: 18px;
+  }
+
+  .hero-about-link {
+    font-size: 16px;
+  }
+
+  .hero-art {
+    width: min(83vw, 330px);
+  }
+
+  .hero-portrait {
+    border-width: 4px;
+    box-shadow: 0 0 0 7px var(--pink-dark), 0 0 0 10px var(--ink);
+  }
+
+  .hero-stick {
+    width: 16px;
+  }
+
+  .dotted-rail {
+    border-width: 3px;
+  }
+
+  .about-rail h2 {
+    font-size: 42px;
+  }
+
+  .about-section {
+    padding: 13px 14px;
+  }
+
+  .about-rail {
+    padding-inline: 5px;
+  }
+
+  .about-rail h2 {
+    margin-bottom: 3px;
+    text-align: center;
+  }
+
+  .about-intro {
+    max-width: 100%;
+    margin: 0 auto 18px;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .about-portrait {
+    width: min(100%, 250px);
+    height: 235px;
+    margin-inline: auto;
+  }
+
+  .about-copy {
+    padding: 18px;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+
+  .about-copy p {
+    margin-bottom: 13px;
+  }
+
+  .contact-section {
+    padding-inline: 14px;
+  }
+
+  .contact-rail {
+    padding-inline: 7px;
+  }
+
+  .contact-sweet {
+    top: 49px;
+    font-size: 34px;
+  }
+
+  .contact-sweet-left {
+    left: 1%;
+  }
+
+  .contact-sweet-right {
+    right: 1%;
+  }
+
+  .contact-rail h2 {
+    font-size: 50px;
+  }
+
+  .contact-rail p {
+    max-width: 290px;
+    margin-inline: auto;
+    font-size: 18px;
+  }
+
+  .contact-links {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .contact-links a {
+    max-width: 100%;
+    font-size: 18px;
+  }
+
+  .site-footer {
+    padding: 28px 20px 17px;
+  }
+
+  .footer-main {
+    grid-template-columns: 1fr auto;
+    gap: 22px 15px;
+    padding-bottom: 22px;
+  }
+
+  .footer-signoff {
+    grid-column: 1 / -1;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .footer-signoff p {
+    flex: 1 1 150px;
+    min-width: 0;
+  }
+
+  .footer-main > * {
+    min-width: 0;
+  }
+
+  .footer-brand {
+    width: min(190px, 48vw);
+  }
+
+  .footer-signoff p {
+    font-size: 20px;
+  }
+
+  .footer-signoff p span {
+    font-size: 14px;
+  }
+
+  .footer-nav {
+    gap: 9px 17px;
+  }
+
+  .footer-nav a {
+    font-size: 16px;
+  }
+
+  .back-to-top {
+    justify-self: end;
+    font-size: 15px;
+  }
+
+  .footer-bottom {
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .portfolio-page {
+    padding: 32px 14px 44px;
+  }
+
+  .portfolio-inner {
+    padding-inline: 0;
+  }
+
+  .portfolio-grid {
+    gap: 28px;
+  }
+
+  .portfolio-image {
+    height: auto;
+    aspect-ratio: 1.35;
+  }
+
+  .portfolio-empty {
+    padding-inline: 16px;
+  }
+}
+
+/* Very narrow phones: stack the footer and shrink the hero so nothing is wider than the screen */
+@media (max-width: 400px) {
+  .hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(34px, 11.5vw, 48px);
+  }
+
+  .hero-art {
+    width: min(70vw, 330px);
+  }
+
+  .footer-main {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+  }
+
+  .back-to-top {
+    justify-self: start;
+  }
+}
+
+/* Respect users who ask the OS for less motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
