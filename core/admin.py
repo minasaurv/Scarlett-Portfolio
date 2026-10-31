@@ -29,7 +29,7 @@ class PortfolioItemAdmin(admin.ModelAdmin):
             'fields': ('category', 'client', 'year', 'tools'),
         }),
         ('Optional link', {
-            'description': 'Add a link (for example to the live project) and the image will open it in a new tab.',
+            'description': 'Add a link',
             'fields': ('link', 'link_text'),
         }),
         ('Display', {
