@@ -1148,6 +1148,94 @@ a {
   color: var(--pink-dark);
 }
 
+.not-found-page {
+  flex: 1 0 auto;
+  display: grid;
+  place-items: center;
+  padding: 48px 20px 60px;
+  background:
+    radial-gradient(rgba(255, 250, 243, .16) 2px, transparent 2.5px) 0 0 / 26px 26px,
+    linear-gradient(180deg, #c42a50, #a01f40);
+}
+
+.not-found-card {
+  width: min(100%, 720px);
+  padding: clamp(26px, 6vw, 58px);
+  border: 4px solid var(--ink);
+  border-radius: 8px 34px 8px 34px;
+  background: var(--white);
+  box-shadow: 8px 9px 0 var(--ink);
+  text-align: center;
+}
+
+.not-found-code {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .16em;
+  margin: 0 0 8px;
+  color: var(--pink-dark);
+  font-family: var(--display);
+  font-size: clamp(44px, 10vw, 72px);
+  line-height: 1;
+}
+
+.not-found-code i {
+  color: var(--brown);
+  font-size: .75em;
+  line-height: 1;
+  rotate: 15deg;
+}
+
+.not-found-card h1 {
+  margin: 12px 0;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: clamp(32px, 6vw, 48px);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.not-found-message {
+  max-width: 520px;
+  margin: 0 auto;
+  color: #5b4041;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.not-found-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.not-found-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 20px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  background: #ffc96e;
+  box-shadow: 4px 5px 0 var(--ink);
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.not-found-actions a:hover,
+.not-found-actions a:focus-visible {
+  transform: translate(2px, 3px);
+  box-shadow: 2px 2px 0 var(--ink);
+  background: var(--cream);
+}
+
 /* 7. Responsive overrides and reduced motion ---------------------------- */
 
 /* Tablet: hero stacks into one centered column */

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}Page not found - Scarlett Conyers{% endblock %}
+{% block content %}
+<section class="not-found-page" aria-labelledby="not-found-title">
+  <div class="not-found-card">
+    <p class="not-found-code"><i class="fa-solid fa-ice-cream" aria-hidden="true"></i> 404</p>
+    <h1 id="not-found-title">Oops, this page has melted away!</h1>
+    <p class="not-found-message">The page you're looking for does not exist. It may have moved or the link may be incorrect.</p>
+    <nav class="not-found-actions" aria-label="Helpful pages">
+      <a href="{% url 'core:index' %}"><i class="fa-solid fa-house" aria-hidden="true"></i> Back to home</a>
+    </nav>
+  </div>
+</section>
+{% endblock %}
