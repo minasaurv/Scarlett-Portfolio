@@ -366,15 +366,20 @@ a {
 }
 
 .about-rail h2 {
-  margin-bottom: 3px;
   color: #7d1025;
   text-align: left;
 }
 
-.about-rail h2 i,
-.contact-rail h2 i {
+.about-rail h2 i {
   margin-right: 9px;
   color: var(--pink-dark);
+  font-size: .72em;
+  vertical-align: .08em;
+}
+
+.contact-rail h2 i {
+  margin-right: 9px;
+  color: var(--white);
   font-size: .72em;
   vertical-align: .08em;
 }
